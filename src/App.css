@@ -2,6 +2,13 @@
   font-family: la;
   src: url(fonts/smith.ttf);
 }
+.App{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
 body{
   text-align: center;
   background-color: gainsboro;
@@ -9,18 +16,19 @@ body{
 }
 button{
   background:#98a2a9;
-  width: 200px;
+  width: 50%;
   color: white;
+  font-family: la;
+  font-size: 20px;
+  height: auto;
 }
 .formContainer{
   display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
 }
 .selectContainer{
-  display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
 }

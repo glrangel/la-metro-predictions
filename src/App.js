@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './App.css';
-const stations = require('./station-info.json');
+import Select from 'react-select';
+import {redLine,groupedOptions } from './data/stationData'
+const stations = require('./data/station-info.json');
 
 class App extends Component {
   constructor(){
@@ -35,9 +37,7 @@ class App extends Component {
     .catch((error) =>{
       console.log(error);
     });
-        // https://routing.openstreetmap.de/routed-foot/route/v1/driving/-118.29304571428573,34.07306742857143;-118.2919583,34.0766342?overview=false&geometries=polyline&steps=true
-      // From; To
-        //long, lat
+
   }
   distance(lat1, lon1, lat2, lon2, unit) {
     var radlat1 = Math.PI * lat1/180
@@ -77,13 +77,16 @@ class App extends Component {
       });
   }
   handleChange(event){
-    this.setState({stationNum: event.target.value,
-      stationTitle: event.target[event.target.selectedIndex].text
+    console.log(event);
+    this.setState({stationNum: event.value,
+      stationTitle: event.label,
+      walkingEstimate: ''
     });
   }
   handleClick(event){
     event.preventDefault();
     console.log("We here");
+
     
     this.getNearestStation((nearestStation,lat,lon) => {
       console.log(lat);
@@ -97,42 +100,33 @@ class App extends Component {
       this.getWalkingEstimate(lat,lon,
         nearestStation.lat,nearestStation.long,
         (time) =>{
-          this.setState({walkingEstimate: time + ' min'});
+          this.setState({walkingEstimate: time + ' min walk to station'});
         }
       );
+      this.refs.stationList.state.value.value = nearestStation.stopnum;
+      this.refs.stationList.state.value.label = nearestStation.station; 
     });
   }
   render(){
     return (
       <div className="App">
         <h1>Los Angeles Metro Rail Arrival Predications</h1>
-        {/* <p>Use GPS to find nearest station or select below.</p> */}
         <form className="formContainer">
           <button onClick={this.handleClick}>Use GPS</button>
           <label>or</label>
           <div className="selectContainer">
             <label>Select Metro Station</label>
-            <select value={this.state.stationNum} 
-              onChange={this.handleChange}>
-              <option value="80201">North Hollywood</option>
-              <option value="80202">Universal / Studio City</option>
-              <option value="80203">Hollywood / Highland</option>
-              <option value="80204">Hollywood / Vine</option>
-              <option value="80205">Hollywood / Western</option>
-              <option value="80206">Vermont / Sunset</option>
-              <option value="80207">Vermont / Santa Monica</option>
-              <option value="80208">Vermont / Beverly</option>
-              <option value="80209">Wilshire / Vermont</option>
-              <option value="80210">Westlake / Macarthur Park</option>
-              <option value="80211">7th Street / Metro Center</option>
-              <option value="80212">Pershing Square</option>
-              <option value="80213">Civic Center / Grand Park</option>
-              <option value="80214">Union Station</option>
-            </select>
+            <Select
+              ref="stationList"
+              defaultValue={redLine[0]}
+              onChange={this.handleChange}
+              options={groupedOptions}
+              placeholder="Select Station"
+              />
           </div>
         </form>
         <h3>{this.state.stationTitle}</h3>
-        <h4>{this.state.walkingEstimate}</h4>
+        <h5>{this.state.walkingEstimate}</h5>
       </div>
     );
   }
