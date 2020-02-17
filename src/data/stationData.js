@@ -49,8 +49,8 @@ export const blueLine = [
     {value: '80154', label: '5th Street Station'}
   ];
 export const expoLine = [
-    {value: '80121', label: 'Pico'},
     {value: '80122', label: '7th Street / Metro Center'},
+    {value: '80121', label: 'Pico'},
     {value: '80123' ,label: 'LATTC / Ortho Institute'},
     {value: '80124' ,label: 'Jefferson / USC'},
     {value: '80125' ,label: 'Expo Park / USC'},

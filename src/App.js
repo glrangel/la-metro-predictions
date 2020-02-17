@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import Select from 'react-select';
 import {redLine,groupedOptions } from './data/stationData'
+import ArrivalTimes from './components/ArrivalTimes.js';
 const stations = require('./data/station-info.json');
 
 class App extends Component {
@@ -110,9 +111,9 @@ class App extends Component {
   render(){
     return (
       <div className="App">
-        <h1>Los Angeles Metro Rail Arrival Predications</h1>
+        <h1>Los Angeles Metro Rail</h1>
         <form className="formContainer">
-          <button onClick={this.handleClick}>Use GPS</button>
+          <button className="button-primary" onClick={this.handleClick}>Use GPS</button>
           <label>or</label>
           <div className="selectContainer">
             <label>Select Metro Station</label>
@@ -125,8 +126,9 @@ class App extends Component {
               />
           </div>
         </form>
-        <h3>{this.state.stationTitle}</h3>
+        <h3>{this.state.stationTitle} Departure Times</h3>
         <h5>{this.state.walkingEstimate}</h5>
+        <ArrivalTimes stationNum={this.state.stationNum} />
       </div>
     );
   }

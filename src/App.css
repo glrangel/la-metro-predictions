@@ -15,12 +15,12 @@ body{
   font-family: la;
 }
 button{
-  background:#98a2a9;
+  /* background:#0272b9; */
   width: 50%;
   color: white;
   font-family: la;
   font-size: 20px;
-  height: auto;
+  height: 50px;
 }
 .formContainer{
   display: flex;
@@ -31,4 +31,9 @@ button{
 }
 .selectContainer{
   width: 100%;
+}
+@media (max-width: 700px){
+  .formContainer{
+    width: 100%;
+  }
 }
