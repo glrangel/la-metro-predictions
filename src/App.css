@@ -32,6 +32,58 @@ button{
 .selectContainer{
   width: 100%;
 }
+.stationCardContainer{
+  width: 100%;
+}
+.stationCard{
+  width: 100%;
+  /* height: 100px; */
+  color: white;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+  cursor: pointer;
+}
+.stationCard:hover{
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.8);
+}
+.stationCard h1{
+  margin: 0;
+  padding: 10px 0;
+}
+.arrivalTimes{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.trainDirections{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.blue{
+  background-color: #004dac;
+}
+.red{
+  background-color: #ee3a43;
+}
+.green{
+  background-color: #2eab00;
+}
+.gold{
+  background-color: #da7c20;
+}
+.purple{
+  background-color: #9561a9;
+}
+.expo{
+  background-color: #5bc2e7;
+}
 @media (max-width: 700px){
   .formContainer{
     width: 100%;

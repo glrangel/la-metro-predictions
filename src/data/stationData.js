@@ -63,7 +63,7 @@ export const expoLine = [
     {value: '80132' ,label: 'Culver City'}
   ];
 export const goldLine = [
-    {value: '80401', label: 'Atlantic'},
+    {value: '80401',label: 'Atlantic'},
     {value: '80402',label: 'East LA Civic Center'},
     {value: '80403',label: 'Maravilla'},
     {value: '80404',label: 'Indiana'},
@@ -81,9 +81,15 @@ export const goldLine = [
     {value: '80416',label: 'Fillmore'},
     {value: '80417',label: 'Del Mar'},
     {value: '80418',label: 'Memorial Park'},
-    {value: '80419',label: 'Lake'},
+    {value: '80419',label: 'Lake Avenue'},
     {value: '80420',label: 'Allen'},
-    {value: '80421',label: 'Sierra Madre Villa'}
+    {value: '80421',label: 'Sierra Madre Villa'},
+    {value: '80422',label: 'Arcadia'},
+    {value: '80423',label: 'Monrovia'},
+    {value: '80424',label: 'Duarte/City of Hope'},
+    {value: '80425',label: 'Irwindale'},
+    {value: '80426',label: 'Azusa Downtown'},
+    {value: '80427',label: 'APU/Citrus College'}
   ];
 export const greenLine = [
     {value: '80301', label: 'Redondo Beach'},
@@ -127,3 +133,26 @@ export const greenLine = [
       options: greenLine,
     },
   ];
+
+  export const trainLines = {
+      "801" : "Blue Line",
+      "802" : "Red Line",
+      "803" : "Green Line",
+      "804" : "Gold Line",
+      "805" : "Purple Line",
+      "806" : "Expo Lin"
+  }
+  export const trainDirections = {
+      "801_1_var0" : "Downtown Long Beach Station",
+      "801_0_var0" : "7th Street / Metro Center",
+      "802_1_var0" : "North Hollywood",
+      "802_0_var0" : "Union Station",
+      "803_1_var0" : "Redondo Beach",
+      "803_0_var0" : "Norwalk",
+      "804_1_var0" : "Atlantic",
+      "804_0_var0" : "Azusa / Citrus",
+      "805_1_var0" : "Wilshire / Western",
+      "805_0_var0" : "Union Station",
+      "806_1_var0" : "Downtown Santa Monica",
+      "806_0_var0" : "7th Street / Metro Center"
+  }

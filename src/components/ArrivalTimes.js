@@ -1,5 +1,18 @@
 import React , {Component} from 'react';
 import TrainCard from './TrainCard';
+import {trainLines, trainDirections} from '../data/stationData';
+
+// let Line = {
+//     lineNum: "",
+//     directionA: {
+//         title: "",
+//         trains: []
+//     },
+//     directionB: {
+//         title: "",
+//         trains: []
+//     }
+// };
 /* 
 Train Codes
 801 = Blue line - long beach
@@ -24,12 +37,46 @@ class ArrivalTimes extends Component {
         super();
         this.state = {
             data: null,
+            lineNums: [],
             lines: []
         }
     }
-    // numOfLines(value,index,self){
-    //     return self.indexOf(value) === index;
-    // }
+    createLineObject(data,lines){
+        console.log(data);
+        // console.log(lines);
+        var newState = [];
+        lines.forEach(lineNum => {
+            var line = {};
+            line.lineColor = trainLines[lineNum];
+            line.lineNum = lineNum;
+            line.trainsA = [];
+            line.trainsB = [];
+            line.titleA = '';
+            line.titleB = '';
+            console.log(line.lineNum);
+
+            data.forEach(train => {
+                if(train.route_id == lineNum)
+                {
+                    if(train.run_id.charAt(4) == 0)
+                    {
+                        if(line.titleA == '')
+                            line.titleA = trainDirections[train.run_id];
+                        line.trainsA.push(train);
+                    }
+                    if(train.run_id.charAt(4) == 1){
+                        if(line.titleB == '')
+                            line.titleB = trainDirections[train.run_id];
+                        line.trainsB.push(train);
+                    }
+                }
+            });
+            newState.push(line);
+            // add line to state
+        });
+        this.setState({lines: newState})
+        console.log(this.state.lines);
+    }
     componentDidMount(){
         this.fetchData();
     }
@@ -54,25 +101,18 @@ class ArrivalTimes extends Component {
                         curr = station.route_id;
                     }
                 })
-                this.setState({lines: tmp,
+                // this.setState({lines: []});
+                this.setState({lineNums: tmp,
                 data: data.items});
-                console.log(this.state.lines);
-                
+                this.createLineObject(this.state.data,this.state.lineNums);
             });
     }
     render(){
-
-        // if(this.state.lines.length > 0){
-        //     this.state.lines.forEach((train) => { 
-        //         trains.push(<TrainCard data={this.state.data} line={train}/>);
-        //         }
-        //     )
-        // }
+        console.log(this.state.lines.length);
         return(
-            <div>
-                <h1>{this.props.stationNum}</h1>
+            <div className="arrivalTimes">
                 {this.state.lines.map((train) =>
-                    <TrainCard data={this.state.data} line={train} />
+                    <TrainCard train={train} />
                 )}
             </div>
         );
