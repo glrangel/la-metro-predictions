@@ -104,8 +104,9 @@ class App extends Component {
           this.setState({walkingEstimate: time + ' min walk to station'});
         }
       );
-      this.refs.stationList.state.value.value = nearestStation.stopnum;
-      this.refs.stationList.state.value.label = nearestStation.station; 
+      // TODO: Display correct station on dropdown when GPS is used
+      // this.refs.stationList.state.value.value = nearestStation.stopnum;
+      // this.refs.stationList.state.value.label = nearestStation.station; 
     });
   }
   render(){
@@ -127,8 +128,10 @@ class App extends Component {
           </div>
         </form>
         <h3>{this.state.stationTitle} Departure Times</h3>
-        <h5>{this.state.walkingEstimate}</h5>
-        <ArrivalTimes stationNum={this.state.stationNum} />
+        <ArrivalTimes 
+          ref="arrivalTimes" 
+          stationNum={this.state.stationNum} 
+          walkingEstimate={this.state.walkingEstimate} />
       </div>
     );
   }

@@ -140,19 +140,19 @@ export const greenLine = [
       "803" : "Green Line",
       "804" : "Gold Line",
       "805" : "Purple Line",
-      "806" : "Expo Lin"
+      "806" : "Expo Line"
   }
   export const trainDirections = {
-      "801_1_var0" : "Downtown Long Beach Station",
-      "801_0_var0" : "7th Street / Metro Center",
-      "802_1_var0" : "North Hollywood",
-      "802_0_var0" : "Union Station",
-      "803_1_var0" : "Redondo Beach",
-      "803_0_var0" : "Norwalk",
-      "804_1_var0" : "Atlantic",
-      "804_0_var0" : "Azusa / Citrus",
-      "805_1_var0" : "Wilshire / Western",
-      "805_0_var0" : "Union Station",
-      "806_1_var0" : "Downtown Santa Monica",
-      "806_0_var0" : "7th Street / Metro Center"
+      "801_1" : "Downtown Long Beach Station",
+      "801_0" : "7th Street / Metro Center",
+      "802_1" : "North Hollywood",
+      "802_0" : "Union Station",
+      "803_1" : "Redondo Beach",
+      "803_0" : "Norwalk",
+      "804_1" : "Atlantic",
+      "804_0" : "Azusa / Citrus",
+      "805_1" : "Wilshire / Western",
+      "805_0" : "Union Station",
+      "806_1" : "Downtown Santa Monica",
+      "806_0" : "7th Street / Metro Center"
   }

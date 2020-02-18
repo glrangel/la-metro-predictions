@@ -38,11 +38,19 @@ class ArrivalTimes extends Component {
         this.state = {
             data: null,
             lineNums: [],
-            lines: []
+            lines: [],
+            error: false
         }
     }
+    resetState(){
+        this.setState({
+            data: null,
+            lineNums: [],
+            lines: []
+        });
+    }
     createLineObject(data,lines){
-        console.log(data);
+        console.log("LINES: " + lines);
         // console.log(lines);
         var newState = [];
         lines.forEach(lineNum => {
@@ -61,12 +69,12 @@ class ArrivalTimes extends Component {
                     if(train.run_id.charAt(4) == 0)
                     {
                         if(line.titleA == '')
-                            line.titleA = trainDirections[train.run_id];
+                            line.titleA = trainDirections[train.run_id.substring(0,5)];
                         line.trainsA.push(train);
                     }
                     if(train.run_id.charAt(4) == 1){
                         if(line.titleB == '')
-                            line.titleB = trainDirections[train.run_id];
+                            line.titleB = trainDirections[train.run_id.substring(0,5)];
                         line.trainsB.push(train);
                     }
                 }
@@ -78,6 +86,8 @@ class ArrivalTimes extends Component {
         console.log(this.state.lines);
     }
     componentDidMount(){
+
+        // this.setState({savedLineNum: this.props.lineNum});
         this.fetchData();
     }
     componentDidUpdate(prevProps) {
@@ -88,31 +98,46 @@ class ArrivalTimes extends Component {
 
     fetchData(){
         var API_URL = `https://api.metro.net/agencies/lametro-rail/stops/${this.props.stationNum}/predictions/`;
-        // console.log(API_URL);        
+        // console.log(API_URL);
+        if(this.state.error)
+            this.setState({error: false});        
         fetch(API_URL)
             .then(response => response.json())
             .then((data) => {
-                var curr = data.items[0].route_id;
                 var tmp = [];
-                tmp.push(curr);
+                var exists = {};
                 data.items.forEach((station)=>{
-                    if(curr != station.route_id){
+                    if(!exists[station.route_id]){
                         tmp.push(station.route_id);
-                        curr = station.route_id;
+                        exists[station.route_id] = true;
                     }
                 })
                 // this.setState({lines: []});
                 this.setState({lineNums: tmp,
                 data: data.items});
                 this.createLineObject(this.state.data,this.state.lineNums);
+            }).catch((error) =>{
+                console.log(error);
+                this.setState({error: true});
+                this.resetState();
+                // Display message
             });
     }
     render(){
-        console.log(this.state.lines.length);
         return(
             <div className="arrivalTimes">
+                {this.props.walkingEstimate &&
+                    <h5>{this.props.walkingEstimate}‍</h5>
+                }
+                <button className="button-primary refresh" onClick={this.fetchData}>Refresh</button>
+                {this.state.error &&
+                    <div>
+                        <p>Unable to fetch data due to Metro API issues. Please try again soon.</p>
+                        <img src="./fetch.gif" alt=""></img>
+                    </div>
+                }
                 {this.state.lines.map((train) =>
-                    <TrainCard train={train} />
+                    <TrainCard train={train} numOfLines={this.state.lines.length} />
                 )}
             </div>
         );
