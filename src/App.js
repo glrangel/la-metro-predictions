@@ -15,7 +15,6 @@ class App extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-
   }
   getWalkingEstimate(lat,lon,stationLat,stationLon,callback){
     var URL = 'https://graphhopper.com/api/1/route?vehicle=foot&locale=en-US&key=LijBPDQGfu7Iiq80w3HzwB4RUDJbMbhs6BU0dEnn&ch.disable=false&elevation=false&instructions=true&point='+lat+'%2C'+lon+'&point='+stationLat+'%2C'+stationLon
@@ -78,6 +77,9 @@ class App extends Component {
       });
   }
   handleChange(event){
+    console.log(this.refs.stationList.select);
+    // console.log(this.refs.stationList.select.getOptionValue());
+
     console.log(event);
     this.setState({stationNum: event.value,
       stationTitle: event.label,
@@ -105,8 +107,23 @@ class App extends Component {
         }
       );
       // TODO: Display correct station on dropdown when GPS is used
-      // this.refs.stationList.state.value.value = nearestStation.stopnum;
-      // this.refs.stationList.state.value.label = nearestStation.station; 
+      this.refs.stationList.select.setValue(
+        {value: nearestStation.stopnum, label: nearestStation.station}
+      );
+      // this.refs.stationList.setState({value: 
+      //   {
+      //     value: nearestStation.stopnum,
+      //     label: nearestStation.station
+      //   }
+      // });
+        // console.log(this.refs.stationList.select.getOptionValue);
+      // this.refs.stationList.select.selectOption(
+      //   {value: nearestStation.stopnum, label: nearestStation.station}
+      // );
+      console.log(this.refs.stationList.select);
+
+
+
     });
   }
   render(){

@@ -33,14 +33,20 @@ e.g. 802_0_var0 = Redline south
 // Willowbrook - Rosa Parks Station - Blue(80112), Green (80311)
 
 class ArrivalTimes extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
+            // stationNum: props.stationNum,
             data: null,
             lineNums: [],
             lines: [],
-            error: false
+            error: false,
+            loadingData: true
         }
+        this.handleClick = this.handleClick.bind(this);
+    }
+    handleClick(){
+        this.fetchData();
     }
     resetState(){
         this.setState({
@@ -50,7 +56,7 @@ class ArrivalTimes extends Component {
         });
     }
     createLineObject(data,lines){
-        console.log("LINES: " + lines);
+        // console.log("LINES: " + lines);
         // console.log(lines);
         var newState = [];
         lines.forEach(lineNum => {
@@ -61,7 +67,7 @@ class ArrivalTimes extends Component {
             line.trainsB = [];
             line.titleA = '';
             line.titleB = '';
-            console.log(line.lineNum);
+            // console.log(line.lineNum);
 
             data.forEach(train => {
                 if(train.route_id == lineNum)
@@ -83,11 +89,10 @@ class ArrivalTimes extends Component {
             // add line to state
         });
         this.setState({lines: newState})
-        console.log(this.state.lines);
+        this.setState({loadingData: false});        
+        // console.log(this.state.lines);
     }
     componentDidMount(){
-
-        // this.setState({savedLineNum: this.props.lineNum});
         this.fetchData();
     }
     componentDidUpdate(prevProps) {
@@ -98,9 +103,10 @@ class ArrivalTimes extends Component {
 
     fetchData(){
         var API_URL = `https://api.metro.net/agencies/lametro-rail/stops/${this.props.stationNum}/predictions/`;
-        // console.log(API_URL);
         if(this.state.error)
             this.setState({error: false});        
+        if(!this.state.loadingData)
+            this.setState({loadingData: true});        
         fetch(API_URL)
             .then(response => response.json())
             .then((data) => {
@@ -117,11 +123,12 @@ class ArrivalTimes extends Component {
                 data: data.items});
                 this.createLineObject(this.state.data,this.state.lineNums);
             }).catch((error) =>{
-                console.log(error);
+                // console.log(error);
                 this.setState({error: true});
                 this.resetState();
                 // Display message
             });
+
     }
     render(){
         return(
@@ -129,7 +136,10 @@ class ArrivalTimes extends Component {
                 {this.props.walkingEstimate &&
                     <h5>{this.props.walkingEstimate}‍</h5>
                 }
-                <button className="button-primary refresh" onClick={this.fetchData}>Refresh</button>
+                <button className="button-primary refresh" onClick={this.handleClick}>Refresh</button>
+                {this.state.loadingData  &&
+                    <h5 style={{"color":"grey"}}>Fetching Data...</h5>
+                }
                 {this.state.error &&
                     <div>
                         <p>Unable to fetch data due to Metro API issues. Please try again soon.</p>
