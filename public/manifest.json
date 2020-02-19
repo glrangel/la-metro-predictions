@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "LA Metro Rail Predictions",
+  "name": "React app that displays arrival predictions for the LA Metro Rail system.",
   "icons": [
     {
       "src": "favicon.ico",

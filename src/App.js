@@ -112,6 +112,10 @@ class App extends Component {
   render(){
     return (
       <div className="App">
+        <div className="underConstruction">
+          <h6>🚧 App still under construction 🚧</h6>
+          <h6>Message me <a target="_blank" href="https://www.gabriel-rangel.com/contact">here</a> with any concerns or questions.</h6>
+        </div>
         <h1>Los Angeles Metro Rail</h1>
         <form className="formContainer">
           <button className="button-primary" onClick={this.handleClick}>Use GPS</button>
