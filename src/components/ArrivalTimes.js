@@ -136,10 +136,9 @@ class ArrivalTimes extends Component {
                 {this.props.walkingEstimate &&
                     <h5>{this.props.walkingEstimate}‍</h5>
                 }
-                <button className="button-primary refresh" onClick={this.handleClick}>Refresh</button>
-                {this.state.loadingData  &&
-                    <h5 style={{"color":"grey"}}>Fetching Data...</h5>
-                }
+                <button className="button-primary refresh" onClick={this.handleClick}>
+                    {this.state.loadingData ? "Fetching Data..." : "Refresh"}
+                </button>
                 {this.state.error &&
                     <div>
                         <p>Unable to fetch data due to Metro API issues. Please try again soon.</p>
