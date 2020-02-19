@@ -14,8 +14,9 @@
 }
 .underConstruction{
   background-color: lightyellow;
-  width: 110%;
-  padding: 10px 0;
+  width: 100%;
+  padding: 10px 20px;
+  box-shadow: 0px 1px 5px  black;
 }
 .underConstruction h6{
   margin: 0;

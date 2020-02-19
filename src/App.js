@@ -130,8 +130,8 @@ class App extends Component {
     return (
       <div className="App">
         <div className="underConstruction">
-          <h6>🚧 App still under construction 🚧</h6>
-          <h6>Message me <a target="_blank" href="https://www.gabriel-rangel.com/contact">here</a> with any concerns or questions.</h6>
+          <h6 style={{"font-size":"1.3rem"}}>🚧 App still under construction 🚧</h6>
+          <h6 style={{"font-size":"1.3rem"}}>Message me <a target="_blank" href="https://www.gabriel-rangel.com/contact">here</a> with any concerns or questions.</h6>
         </div>
         <h1>Los Angeles Metro Rail</h1>
         <form className="formContainer">
