@@ -29,7 +29,7 @@ body{
 }
 button{
   /* background:#0272b9; */
-  width: 50%;
+  /* width: 50%; */
   color: white;
   font-family: la;
   font-size: 20px;
@@ -118,6 +118,14 @@ button{
 }
 .expo{
   background-color: #5bc2e7;
+}
+.apiError{
+  color: dimgrey;
+  margin-bottom: 40px;
+}
+.apiError p{
+  padding: 0;
+  margin: 0;
 }
 ::-webkit-scrollbar {
   display: none;

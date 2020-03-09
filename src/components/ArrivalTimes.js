@@ -187,7 +187,11 @@ class ArrivalTimes extends Component {
                 </button>
                 {this.state.error &&
                     <div>
-                        <p style="color: dimgrey;">Unable to fetch data due to Metro API internal server errors. <br><span style="color: #ee3a43;">Refresh until data appears.</span><br>Developing a work around to unreliable Metro API.</p>
+                        <div className="apiError">
+                            <p>Unable to fetch data due to Metro API internal server errors.</p>
+                            <p style={{color: "#ee3a43"}}>Click refresh button until data appears.</p>
+                            <p>Developing a work around to unreliable Metro API.</p>
+                        </div>
                         <img src="./fetch.gif" alt=""></img>
                     </div>
                 }
