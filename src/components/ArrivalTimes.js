@@ -135,6 +135,8 @@ class ArrivalTimes extends Component {
       }
 
     fetchData(num){
+        // This endpoint works
+        // "https://api.metro.net/agencies/lametro-rail/routes/802/stops/80208/predictions/"
         var API_URL = '';
         if(num)
             API_URL = `https://api.metro.net/agencies/lametro-rail/stops/${num}/predictions/`;
@@ -185,7 +187,7 @@ class ArrivalTimes extends Component {
                 </button>
                 {this.state.error &&
                     <div>
-                        <p>Unable to fetch data due to Metro API internal server errors. Will update app soon to reflect Metro API changes.</p>
+                        <p style="color: dimgrey;">Unable to fetch data due to Metro API internal server errors. <br><span style="color: #ee3a43;">Refresh until data appears.</span><br>Developing a work around to unreliable Metro API.</p>
                         <img src="./fetch.gif" alt=""></img>
                     </div>
                 }
