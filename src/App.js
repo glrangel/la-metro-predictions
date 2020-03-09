@@ -65,11 +65,15 @@ class App extends Component {
         var lon = position.coords.longitude;
         for(var i=0; i<stations.length;i++){
           currDist = this.distance(lat,lon,stations[i].lat,stations[i].long,"K");
+          console.log(currDist);
           if(currDist < nearestDist){
             nearestDist = currDist;
             nearestStation = stations[i];
+            console.log("This: " + nearestStation);
+            
           }
         }
+        
         callback(nearestStation,lat,lon);      
       },
       (error) =>{
@@ -96,6 +100,7 @@ class App extends Component {
       console.log(lon);
       
       var str = nearestStation.station;
+      
       var idx =  nearestStation.station.lastIndexOf(" ");
       str = str.substring(0, idx);
       this.setState({stationNum: nearestStation.stopnum,

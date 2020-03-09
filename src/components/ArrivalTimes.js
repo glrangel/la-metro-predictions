@@ -52,10 +52,37 @@ class ArrivalTimes extends Component {
         this.setState({
             data: null,
             lineNums: [],
-            lines: []
+            lines: [],
+            loadingData: false
         });
     }
-    createLineObject(data,lines){
+    checkOverlaps(overlap){
+        // Red/Purple (80211), Blue/Expo (80122)
+        if(!overlap){
+            switch(this.props.stationNum){
+                case "80214":
+                    return this.fetchData(80409);
+                case "80409":
+                    return this.fetchData(80214);
+                case "80211":
+                    return this.fetchData(80122);
+                case "80122":
+                    return this.fetchData(80211);
+                case "80112":
+                    return this.fetchData(80311);
+                case "80311":
+                    return this.fetchData(80112);
+                default:
+                    return console.log("No overlap");
+                    
+            }
+            // if(this.props.stationNum == "80214")
+            //     this.fetchData(80409);
+            // if(this.props.stationNum == "80214")
+            //     this.fetchData(80409);
+        }
+    }
+    createLineObject(data,lines,overlap){
         // console.log("LINES: " + lines);
         // console.log(lines);
         var newState = [];
@@ -86,11 +113,17 @@ class ArrivalTimes extends Component {
                 }
             });
             newState.push(line);
+;
             // add line to state
         });
-        this.setState({lines: newState})
-        this.setState({loadingData: false});        
-        // console.log(this.state.lines);
+        // this.setState({lines: newState});
+        this.setState(prevState =>
+            (overlap ? {lines: [...prevState.lines, ...newState]} :
+                {lines: newState})
+        )
+        this.setState({loadingData: false});
+        this.checkOverlaps(overlap);
+        // (80214), Gold (80409)     
     }
     componentDidMount(){
         this.fetchData();
@@ -101,12 +134,17 @@ class ArrivalTimes extends Component {
         }
       }
 
-    fetchData(){
-        var API_URL = `https://api.metro.net/agencies/lametro-rail/stops/${this.props.stationNum}/predictions/`;
+    fetchData(num){
+        var API_URL = '';
+        if(num)
+            API_URL = `https://api.metro.net/agencies/lametro-rail/stops/${num}/predictions/`;
+        else
+            API_URL = `https://api.metro.net/agencies/lametro-rail/stops/${this.props.stationNum}/predictions/`;
         if(this.state.error)
             this.setState({error: false});        
         if(!this.state.loadingData)
-            this.setState({loadingData: true});        
+            this.setState({loadingData: true}); 
+
         fetch(API_URL)
             .then(response => response.json())
             .then((data) => {
@@ -118,10 +156,16 @@ class ArrivalTimes extends Component {
                         exists[station.route_id] = true;
                     }
                 })
-                // this.setState({lines: []});
+                // this.checkOverlaps();
+                // this.setState(prevState =>
+                //     (num ? {lineNums: [...prevState.lineNums, ...tmp],
+                //         data: [...prevState.data,...data.items] } :
+                //         {lineNums: tmp, data: data.items}
+                //     )
+                // );
                 this.setState({lineNums: tmp,
                 data: data.items});
-                this.createLineObject(this.state.data,this.state.lineNums);
+                this.createLineObject(this.state.data,this.state.lineNums,num);
             }).catch((error) =>{
                 // console.log(error);
                 this.setState({error: true});
@@ -141,7 +185,7 @@ class ArrivalTimes extends Component {
                 </button>
                 {this.state.error &&
                     <div>
-                        <p>Unable to fetch data due to Metro API issues. Please try again soon.</p>
+                        <p>Unable to fetch data due to Metro API internal server errors. Will update app soon to reflect Metro API changes.</p>
                         <img src="./fetch.gif" alt=""></img>
                     </div>
                 }

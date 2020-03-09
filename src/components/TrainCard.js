@@ -58,6 +58,7 @@ class TrainCard extends Component{
                 <div className={this.state.display[train.lineNum] ? "trainDirections open" : "trainDirections close"}>
                     <div>
                         <h4>{train.titleA}</h4>
+                        {/* Do something different if value if ARRIVING */}
                         {train.trainsA.map((elem) =>
                             <h5>{this.convertTime(elem.seconds)} min</h5>
                         )}
